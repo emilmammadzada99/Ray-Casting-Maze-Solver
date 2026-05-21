@@ -24,5 +24,9 @@ A 2D maze game made with Python and Pygame featuring real-time ray casting, dyna
 ## Requirements
 
 ```bash 
-pip install pygame 
+pip install pygame
+```
+# 2D Maze Light Animation
+
+![Maze Demo](maze_fast.gif)
 
