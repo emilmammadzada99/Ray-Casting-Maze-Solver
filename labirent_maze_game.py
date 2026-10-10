@@ -1,13 +1,3 @@
-"""2D Maze Light Animation
-===========================
-Ray casting + Start/Finish + Automatic Solver (BFS) + Compass
-
-Controls:
-  Mouse → Manual mode: move the lamp
-  A → Auto mode on/off (lamp finds finish via BFS)
-  R → Generate new maze
-  ESC → Exit"""
-
 import pygame
 import math
 import random
@@ -22,7 +12,7 @@ FPS = 60
 CELL = 40
 COLS = WIDTH  // CELL
 ROWS = HEIGHT // CELL
-RAY_STEP = 8
+RAY_STEP = 2  # Hassasiyet artırıldı (daha yüksek çözünürlük ve hassasiyet için 8'den 2'ye düşürüldü)
 
 WALL_COLOR  = (70, 90, 130)
 WALL_DIM    = (30, 40, 65)
@@ -50,8 +40,8 @@ def segment_intersect(x1, y1, x2, y2, x3, y3, x4, y4):
 # -------------------------------------------------------------------------------
 def generate_maze(cols, rows):
     visited = [[False]*rows for _ in range(cols)]
-    h_walls = [[True ]*rows for _ in range(cols)]   # right wall
-    v_walls = [[True ]*cols for _ in range(rows)]   # bottom wall
+    h_walls = [[True ]*rows for _ in range(cols)]    # right wall
+    v_walls = [[True ]*cols for _ in range(rows)]    # bottom wall
 
     def neighbours(cx, cy):
         ns = []
@@ -337,8 +327,8 @@ def main():
     pygame.display.set_caption(
         "Labirent Maze")
     clock = pygame.time.Clock()
-    font       = pygame.font.SysFont("consolas", 13, bold=True)
-    font_hud   = pygame.font.SysFont("consolas", 15)
+    font         = pygame.font.SysFont("consolas", 13, bold=True)
+    font_hud     = pygame.font.SysFont("consolas", 15)
     font_small = pygame.font.SysFont("consolas", 20)
 
     # Ground
@@ -390,9 +380,6 @@ def main():
                         waypoints = build_waypoints(graph, lx, ly, finish_pos)
                         wp_idx = 0
 
-        # None
-        # Movement
-        # None
         if not won:
             if auto_mode:
                 # Automatic: move to next waypoint
@@ -429,9 +416,7 @@ def main():
                 won = True
                 auto_mode = False
 
-        # None
         # Drawing
-        # None
         screen.blit(bg, (0, 0))
 
         dark = pygame.Surface((WIDTH, HEIGHT), pygame.SRCALPHA)
